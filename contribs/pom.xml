@@ -72,6 +72,7 @@
 		<module>drt-extensions</module>
 		<module>dvrp</module>
 		<module>ev</module>
+		<module>evWireless</module>
 		<module>emissions</module>
 		<module>freight</module>
 		<module>freightreceiver</module>
