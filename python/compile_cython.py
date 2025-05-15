@@ -4,7 +4,7 @@ import numpy as np
 
 setup(
     ext_modules=cythonize(
-        "./evsim/gradient_flow_matching/cython/get_TAM.pyx",
+        "./rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx",
         language="c++",
         compiler_directives={'language_level': '3'}
     ),

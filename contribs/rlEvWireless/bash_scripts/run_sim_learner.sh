@@ -1,0 +1,1 @@
+mvn exec:java -Dexec.mainClass="org.matsim.contrib.rlEvWireless.OCPRewardServer" -Dexec.args="1"

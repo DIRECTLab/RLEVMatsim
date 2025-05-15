@@ -1,0 +1,12 @@
+/output
+/target
+/bin
+*__pycache__*
+*results*
+*pylint*
+!consumption_map.csv
+rlevmatsim/rlevmatsim.egg-info/
+!best_plans.xml
+*.so
+*.o
+*.cpp

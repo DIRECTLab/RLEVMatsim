@@ -5,12 +5,12 @@
     "distutils": {
         "depends": [],
         "language": "c++",
-        "name": "evsim.gradient_flow_matching.cython.get_TAM",
+        "name": "rlevmatsim.gradient_flow_matching.cython.get_TAM",
         "sources": [
-            "./evsim/gradient_flow_matching/cython/get_TAM.pyx"
+            "./rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx"
         ]
     },
-    "module_name": "evsim.gradient_flow_matching.cython.get_TAM"
+    "module_name": "rlevmatsim.gradient_flow_matching.cython.get_TAM"
 }
 END: Cython Metadata */
 
@@ -1242,8 +1242,8 @@ static CYTHON_INLINE float __PYX_NAN() {
     #define __PYX_EXTERN_C extern "C++"
 #endif
 
-#define __PYX_HAVE__evsim__gradient_flow_matching__cython__get_TAM
-#define __PYX_HAVE_API__evsim__gradient_flow_matching__cython__get_TAM
+#define __PYX_HAVE__rlevmatsim__gradient_flow_matching__cython__get_TAM
+#define __PYX_HAVE_API__rlevmatsim__gradient_flow_matching__cython__get_TAM
 /* Early includes */
 #include "ios"
 #include "new"
@@ -1531,7 +1531,7 @@ static const char *__pyx_filename;
 /* #### Code section: filename_table ### */
 
 static const char *__pyx_f[] = {
-  "evsim/gradient_flow_matching/cython/get_TAM.pyx",
+  "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx",
   "<stringsource>",
   "__init__.cython-30.pxd",
   "type.pxd",
@@ -2658,19 +2658,19 @@ static CYTHON_INLINE char *__pyx_f_5numpy_7ndarray_4data_data(PyArrayObject *__p
 
 /* Module declarations from "cython" */
 
-/* Module declarations from "evsim.gradient_flow_matching.cython.get_TAM" */
-static std::vector<std::vector<int> >  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TAM_build_adjacency_list(PyArrayObject *, int); /*proto*/
-static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TAM_bfs(int, int, int, PyArrayObject *, std::vector<std::vector<int> >  &); /*proto*/
+/* Module declarations from "rlevmatsim.gradient_flow_matching.cython.get_TAM" */
+static std::vector<std::vector<int> >  __pyx_f_5rlevmatsim_22gradient_flow_matching_6cython_7get_TAM_build_adjacency_list(PyArrayObject *, int); /*proto*/
+static std::vector<int>  __pyx_f_5rlevmatsim_22gradient_flow_matching_6cython_7get_TAM_bfs(int, int, int, PyArrayObject *, std::vector<std::vector<int> >  &); /*proto*/
 static PyObject *__pyx_convert_vector_to_py_int(std::vector<int>  const &); /*proto*/
 /* #### Code section: typeinfo ### */
 static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_5numpy_int32_t = { "int32_t", NULL, sizeof(__pyx_t_5numpy_int32_t), { 0 }, 0, __PYX_IS_UNSIGNED(__pyx_t_5numpy_int32_t) ? 'U' : 'I', __PYX_IS_UNSIGNED(__pyx_t_5numpy_int32_t), 0 };
 static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_5numpy_float64_t = { "float64_t", NULL, sizeof(__pyx_t_5numpy_float64_t), { 0 }, 0, 'R', 0, 0 };
 /* #### Code section: before_global_var ### */
-#define __Pyx_MODULE_NAME "evsim.gradient_flow_matching.cython.get_TAM"
-extern int __pyx_module_is_main_evsim__gradient_flow_matching__cython__get_TAM;
-int __pyx_module_is_main_evsim__gradient_flow_matching__cython__get_TAM = 0;
+#define __Pyx_MODULE_NAME "rlevmatsim.gradient_flow_matching.cython.get_TAM"
+extern int __pyx_module_is_main_rlevmatsim__gradient_flow_matching__cython__get_TAM;
+int __pyx_module_is_main_rlevmatsim__gradient_flow_matching__cython__get_TAM = 0;
 
-/* Implementation of "evsim.gradient_flow_matching.cython.get_TAM" */
+/* Implementation of "rlevmatsim.gradient_flow_matching.cython.get_TAM" */
 /* #### Code section: global_var ### */
 static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_MemoryError;
@@ -2717,11 +2717,11 @@ static const char __pyx_k_is_coroutine[] = "_is_coroutine";
 static const char __pyx_k_asyncio_coroutines[] = "asyncio.coroutines";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
-static const char __pyx_k_evsim_gradient_flow_matching_cyt[] = "evsim/gradient_flow_matching/cython/get_TAM.pyx";
+static const char __pyx_k_rlevmatsim_gradient_flow_matching_cyt[] = "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx";
 static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath failed to import";
-static const char __pyx_k_evsim_gradient_flow_matching_cyt_2[] = "evsim.gradient_flow_matching.cython.get_TAM";
+static const char __pyx_k_rlevmatsim_gradient_flow_matching_cyt_2[] = "rlevmatsim.gradient_flow_matching.cython.get_TAM";
 /* #### Code section: decls ### */
-static PyObject *__pyx_pf_5evsim_22gradient_flow_matching_6cython_7get_TAM_get_TAM(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_centroids, PyArrayObject *__pyx_v_edge_index, int __pyx_v_n_nodes, int __pyx_v_n_edges, int __pyx_v_n_clusters); /* proto */
+static PyObject *__pyx_pf_5rlevmatsim_22gradient_flow_matching_6cython_7get_TAM_get_TAM(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_centroids, PyArrayObject *__pyx_v_edge_index, int __pyx_v_n_nodes, int __pyx_v_n_edges, int __pyx_v_n_clusters); /* proto */
 /* #### Code section: late_includes ### */
 /* #### Code section: module_state ### */
 typedef struct {
@@ -2807,8 +2807,8 @@ typedef struct {
   PyObject *__pyx_n_s_desc;
   PyObject *__pyx_n_s_dtype;
   PyObject *__pyx_n_s_edge_index;
-  PyObject *__pyx_kp_s_evsim_gradient_flow_matching_cyt;
-  PyObject *__pyx_n_s_evsim_gradient_flow_matching_cyt_2;
+  PyObject *__pyx_kp_s_rlevmatsim_gradient_flow_matching_cyt;
+  PyObject *__pyx_n_s_rlevmatsim_gradient_flow_matching_cyt_2;
   PyObject *__pyx_n_s_float64;
   PyObject *__pyx_n_s_get_TAM;
   PyObject *__pyx_n_s_idx;
@@ -2914,8 +2914,8 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_desc);
   Py_CLEAR(clear_module_state->__pyx_n_s_dtype);
   Py_CLEAR(clear_module_state->__pyx_n_s_edge_index);
-  Py_CLEAR(clear_module_state->__pyx_kp_s_evsim_gradient_flow_matching_cyt);
-  Py_CLEAR(clear_module_state->__pyx_n_s_evsim_gradient_flow_matching_cyt_2);
+  Py_CLEAR(clear_module_state->__pyx_kp_s_rlevmatsim_gradient_flow_matching_cyt);
+  Py_CLEAR(clear_module_state->__pyx_n_s_rlevmatsim_gradient_flow_matching_cyt_2);
   Py_CLEAR(clear_module_state->__pyx_n_s_float64);
   Py_CLEAR(clear_module_state->__pyx_n_s_get_TAM);
   Py_CLEAR(clear_module_state->__pyx_n_s_idx);
@@ -2999,8 +2999,8 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_desc);
   Py_VISIT(traverse_module_state->__pyx_n_s_dtype);
   Py_VISIT(traverse_module_state->__pyx_n_s_edge_index);
-  Py_VISIT(traverse_module_state->__pyx_kp_s_evsim_gradient_flow_matching_cyt);
-  Py_VISIT(traverse_module_state->__pyx_n_s_evsim_gradient_flow_matching_cyt_2);
+  Py_VISIT(traverse_module_state->__pyx_kp_s_rlevmatsim_gradient_flow_matching_cyt);
+  Py_VISIT(traverse_module_state->__pyx_n_s_rlevmatsim_gradient_flow_matching_cyt_2);
   Py_VISIT(traverse_module_state->__pyx_n_s_float64);
   Py_VISIT(traverse_module_state->__pyx_n_s_get_TAM);
   Py_VISIT(traverse_module_state->__pyx_n_s_idx);
@@ -3118,8 +3118,8 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_desc __pyx_mstate_global->__pyx_n_s_desc
 #define __pyx_n_s_dtype __pyx_mstate_global->__pyx_n_s_dtype
 #define __pyx_n_s_edge_index __pyx_mstate_global->__pyx_n_s_edge_index
-#define __pyx_kp_s_evsim_gradient_flow_matching_cyt __pyx_mstate_global->__pyx_kp_s_evsim_gradient_flow_matching_cyt
-#define __pyx_n_s_evsim_gradient_flow_matching_cyt_2 __pyx_mstate_global->__pyx_n_s_evsim_gradient_flow_matching_cyt_2
+#define __pyx_kp_s_rlevmatsim_gradient_flow_matching_cyt __pyx_mstate_global->__pyx_kp_s_rlevmatsim_gradient_flow_matching_cyt
+#define __pyx_n_s_rlevmatsim_gradient_flow_matching_cyt_2 __pyx_mstate_global->__pyx_n_s_rlevmatsim_gradient_flow_matching_cyt_2
 #define __pyx_n_s_float64 __pyx_mstate_global->__pyx_n_s_float64
 #define __pyx_n_s_get_TAM __pyx_mstate_global->__pyx_n_s_get_TAM
 #define __pyx_n_s_idx __pyx_mstate_global->__pyx_n_s_idx
@@ -4564,7 +4564,7 @@ static CYTHON_INLINE NPY_DATETIMEUNIT __pyx_f_5numpy_get_datetime64_unit(PyObjec
   return __pyx_r;
 }
 
-/* "evsim/gradient_flow_matching/cython/get_TAM.pyx":10
+/* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":10
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * cdef vector[vector[int]] build_adjacency_list(np.ndarray[np.int32_t, ndim=2] edge_index, int n_nodes):             # <<<<<<<<<<<<<<
@@ -4572,7 +4572,7 @@ static CYTHON_INLINE NPY_DATETIMEUNIT __pyx_f_5numpy_get_datetime64_unit(PyObjec
  *         int i, u, v
  */
 
-static std::vector<std::vector<int> >  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TAM_build_adjacency_list(PyArrayObject *__pyx_v_edge_index, int __pyx_v_n_nodes) {
+static std::vector<std::vector<int> >  __pyx_f_5rlevmatsim_22gradient_flow_matching_6cython_7get_TAM_build_adjacency_list(PyArrayObject *__pyx_v_edge_index, int __pyx_v_n_nodes) {
   int __pyx_v_i;
   int __pyx_v_u;
   int __pyx_v_v;
@@ -4601,7 +4601,7 @@ static std::vector<std::vector<int> >  __pyx_f_5evsim_22gradient_flow_matching_6
   }
   __pyx_pybuffernd_edge_index.diminfo[0].strides = __pyx_pybuffernd_edge_index.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_edge_index.diminfo[0].shape = __pyx_pybuffernd_edge_index.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_edge_index.diminfo[1].strides = __pyx_pybuffernd_edge_index.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_edge_index.diminfo[1].shape = __pyx_pybuffernd_edge_index.rcbuffer->pybuffer.shape[1];
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":13
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":13
  *     cdef:
  *         int i, u, v
  *         int n_edges = edge_index.shape[0]             # <<<<<<<<<<<<<<
@@ -4611,7 +4611,7 @@ static std::vector<std::vector<int> >  __pyx_f_5evsim_22gradient_flow_matching_6
   __pyx_t_1 = __pyx_f_5numpy_7ndarray_5shape_shape(((PyArrayObject *)__pyx_v_edge_index)); if (unlikely(__pyx_t_1 == ((npy_intp *)NULL) && PyErr_Occurred())) __PYX_ERR(0, 13, __pyx_L1_error)
   __pyx_v_n_edges = (__pyx_t_1[0]);
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":14
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":14
  *         int i, u, v
  *         int n_edges = edge_index.shape[0]
  *         vector[vector[int]] adj = vector[vector[int]](n_nodes)             # <<<<<<<<<<<<<<
@@ -4626,7 +4626,7 @@ static std::vector<std::vector<int> >  __pyx_f_5evsim_22gradient_flow_matching_6
   }
   __pyx_v_adj = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_2);
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":15
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":15
  *         int n_edges = edge_index.shape[0]
  *         vector[vector[int]] adj = vector[vector[int]](n_nodes)
  *     for i in range(n_edges):             # <<<<<<<<<<<<<<
@@ -4638,7 +4638,7 @@ static std::vector<std::vector<int> >  __pyx_f_5evsim_22gradient_flow_matching_6
   for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
     __pyx_v_i = __pyx_t_5;
 
-    /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":16
+    /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":16
  *         vector[vector[int]] adj = vector[vector[int]](n_nodes)
  *     for i in range(n_edges):
  *         u = edge_index[i, 0]             # <<<<<<<<<<<<<<
@@ -4649,7 +4649,7 @@ static std::vector<std::vector<int> >  __pyx_f_5evsim_22gradient_flow_matching_6
     __pyx_t_7 = 0;
     __pyx_v_u = (*__Pyx_BufPtrStrided2d(__pyx_t_5numpy_int32_t *, __pyx_pybuffernd_edge_index.rcbuffer->pybuffer.buf, __pyx_t_6, __pyx_pybuffernd_edge_index.diminfo[0].strides, __pyx_t_7, __pyx_pybuffernd_edge_index.diminfo[1].strides));
 
-    /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":17
+    /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":17
  *     for i in range(n_edges):
  *         u = edge_index[i, 0]
  *         v = edge_index[i, 1]             # <<<<<<<<<<<<<<
@@ -4660,7 +4660,7 @@ static std::vector<std::vector<int> >  __pyx_f_5evsim_22gradient_flow_matching_6
     __pyx_t_6 = 1;
     __pyx_v_v = (*__Pyx_BufPtrStrided2d(__pyx_t_5numpy_int32_t *, __pyx_pybuffernd_edge_index.rcbuffer->pybuffer.buf, __pyx_t_7, __pyx_pybuffernd_edge_index.diminfo[0].strides, __pyx_t_6, __pyx_pybuffernd_edge_index.diminfo[1].strides));
 
-    /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":18
+    /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":18
  *         u = edge_index[i, 0]
  *         v = edge_index[i, 1]
  *         adj[u].push_back(v)             # <<<<<<<<<<<<<<
@@ -4675,7 +4675,7 @@ static std::vector<std::vector<int> >  __pyx_f_5evsim_22gradient_flow_matching_6
     }
   }
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":19
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":19
  *         v = edge_index[i, 1]
  *         adj[u].push_back(v)
  *     return adj             # <<<<<<<<<<<<<<
@@ -4685,7 +4685,7 @@ static std::vector<std::vector<int> >  __pyx_f_5evsim_22gradient_flow_matching_6
   __pyx_r = __pyx_v_adj;
   goto __pyx_L0;
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":10
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":10
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * cdef vector[vector[int]] build_adjacency_list(np.ndarray[np.int32_t, ndim=2] edge_index, int n_nodes):             # <<<<<<<<<<<<<<
@@ -4701,7 +4701,7 @@ static std::vector<std::vector<int> >  __pyx_f_5evsim_22gradient_flow_matching_6
     __Pyx_ErrFetch(&__pyx_type, &__pyx_value, &__pyx_tb);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_edge_index.rcbuffer->pybuffer);
   __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
-  __Pyx_AddTraceback("evsim.gradient_flow_matching.cython.get_TAM.build_adjacency_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlevmatsim.gradient_flow_matching.cython.get_TAM.build_adjacency_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_pretend_to_initialize(&__pyx_r);
   goto __pyx_L2;
   __pyx_L0:;
@@ -4710,7 +4710,7 @@ static std::vector<std::vector<int> >  __pyx_f_5evsim_22gradient_flow_matching_6
   return __pyx_r;
 }
 
-/* "evsim/gradient_flow_matching/cython/get_TAM.pyx":23
+/* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":23
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * cdef vector[int] bfs(int source, int target, int n_nodes,             # <<<<<<<<<<<<<<
@@ -4718,7 +4718,7 @@ static std::vector<std::vector<int> >  __pyx_f_5evsim_22gradient_flow_matching_6
  *                      vector[vector[int]]& adj):
  */
 
-static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TAM_bfs(int __pyx_v_source, int __pyx_v_target, int __pyx_v_n_nodes, PyArrayObject *__pyx_v_edge_index, std::vector<std::vector<int> >  &__pyx_v_adj) {
+static std::vector<int>  __pyx_f_5rlevmatsim_22gradient_flow_matching_6cython_7get_TAM_bfs(int __pyx_v_source, int __pyx_v_target, int __pyx_v_n_nodes, PyArrayObject *__pyx_v_edge_index, std::vector<std::vector<int> >  &__pyx_v_adj) {
   int __pyx_v_i;
   int __pyx_v_u;
   int __pyx_v_v;
@@ -4761,7 +4761,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
   }
   __pyx_pybuffernd_edge_index.diminfo[0].strides = __pyx_pybuffernd_edge_index.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_edge_index.diminfo[0].shape = __pyx_pybuffernd_edge_index.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_edge_index.diminfo[1].strides = __pyx_pybuffernd_edge_index.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_edge_index.diminfo[1].shape = __pyx_pybuffernd_edge_index.rcbuffer->pybuffer.shape[1];
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":29
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":29
  *     cdef:
  *         int i, u, v
  *         vector[int] visited = vector[int](n_nodes, 0)             # <<<<<<<<<<<<<<
@@ -4776,7 +4776,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
   }
   __pyx_v_visited = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_1);
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":30
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":30
  *         int i, u, v
  *         vector[int] visited = vector[int](n_nodes, 0)
  *         vector[int] prev = vector[int](n_nodes, -1)             # <<<<<<<<<<<<<<
@@ -4791,7 +4791,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
   }
   __pyx_v_prev = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_1);
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":33
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":33
  *         queue[int] q
  *         vector[int] edge_path, reversed_path
  *         int n_edges = edge_index.shape[0]             # <<<<<<<<<<<<<<
@@ -4801,7 +4801,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
   __pyx_t_2 = __pyx_f_5numpy_7ndarray_5shape_shape(((PyArrayObject *)__pyx_v_edge_index)); if (unlikely(__pyx_t_2 == ((npy_intp *)NULL) && PyErr_Occurred())) __PYX_ERR(0, 33, __pyx_L1_error)
   __pyx_v_n_edges = (__pyx_t_2[0]);
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":34
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":34
  *         vector[int] edge_path, reversed_path
  *         int n_edges = edge_index.shape[0]
  *         tuple cache_key = (source, target)             # <<<<<<<<<<<<<<
@@ -4823,7 +4823,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
   __pyx_v_cache_key = ((PyObject*)__pyx_t_5);
   __pyx_t_5 = 0;
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":36
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":36
  *         tuple cache_key = (source, target)
  * 
  *     visited[source] = 1             # <<<<<<<<<<<<<<
@@ -4832,7 +4832,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
  */
   (__pyx_v_visited[__pyx_v_source]) = 1;
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":37
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":37
  * 
  *     visited[source] = 1
  *     q.push(source)             # <<<<<<<<<<<<<<
@@ -4841,7 +4841,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
  */
   __pyx_v_q.push(__pyx_v_source);
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":39
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":39
  *     q.push(source)
  * 
  *     while not q.empty():             # <<<<<<<<<<<<<<
@@ -4852,7 +4852,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
     __pyx_t_6 = (!__pyx_v_q.empty());
     if (!__pyx_t_6) break;
 
-    /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":40
+    /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":40
  * 
  *     while not q.empty():
  *         u = q.front()             # <<<<<<<<<<<<<<
@@ -4861,7 +4861,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
  */
     __pyx_v_u = __pyx_v_q.front();
 
-    /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":41
+    /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":41
  *     while not q.empty():
  *         u = q.front()
  *         q.pop()             # <<<<<<<<<<<<<<
@@ -4870,7 +4870,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
  */
     __pyx_v_q.pop();
 
-    /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":42
+    /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":42
  *         u = q.front()
  *         q.pop()
  *         if u == target:             # <<<<<<<<<<<<<<
@@ -4880,7 +4880,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
     __pyx_t_6 = (__pyx_v_u == __pyx_v_target);
     if (__pyx_t_6) {
 
-      /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":43
+      /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":43
  *         q.pop()
  *         if u == target:
  *             break             # <<<<<<<<<<<<<<
@@ -4889,7 +4889,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
  */
       goto __pyx_L4_break;
 
-      /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":42
+      /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":42
  *         u = q.front()
  *         q.pop()
  *         if u == target:             # <<<<<<<<<<<<<<
@@ -4898,7 +4898,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
  */
     }
 
-    /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":44
+    /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":44
  *         if u == target:
  *             break
  *         for i in range(adj[u].size()):             # <<<<<<<<<<<<<<
@@ -4910,7 +4910,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
     for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
       __pyx_v_i = __pyx_t_9;
 
-      /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":45
+      /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":45
  *             break
  *         for i in range(adj[u].size()):
  *             v = adj[u][i]             # <<<<<<<<<<<<<<
@@ -4919,7 +4919,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
  */
       __pyx_v_v = ((__pyx_v_adj[__pyx_v_u])[__pyx_v_i]);
 
-      /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":46
+      /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":46
  *         for i in range(adj[u].size()):
  *             v = adj[u][i]
  *             if not visited[v]:             # <<<<<<<<<<<<<<
@@ -4929,7 +4929,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
       __pyx_t_6 = (!((__pyx_v_visited[__pyx_v_v]) != 0));
       if (__pyx_t_6) {
 
-        /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":47
+        /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":47
  *             v = adj[u][i]
  *             if not visited[v]:
  *                 visited[v] = 1             # <<<<<<<<<<<<<<
@@ -4938,7 +4938,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
  */
         (__pyx_v_visited[__pyx_v_v]) = 1;
 
-        /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":48
+        /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":48
  *             if not visited[v]:
  *                 visited[v] = 1
  *                 prev[v] = u             # <<<<<<<<<<<<<<
@@ -4947,7 +4947,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
  */
         (__pyx_v_prev[__pyx_v_v]) = __pyx_v_u;
 
-        /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":49
+        /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":49
  *                 visited[v] = 1
  *                 prev[v] = u
  *                 q.push(v)             # <<<<<<<<<<<<<<
@@ -4956,7 +4956,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
  */
         __pyx_v_q.push(__pyx_v_v);
 
-        /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":46
+        /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":46
  *         for i in range(adj[u].size()):
  *             v = adj[u][i]
  *             if not visited[v]:             # <<<<<<<<<<<<<<
@@ -4968,7 +4968,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
   }
   __pyx_L4_break:;
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":51
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":51
  *                 q.push(v)
  * 
  *     v = target             # <<<<<<<<<<<<<<
@@ -4977,7 +4977,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
  */
   __pyx_v_v = __pyx_v_target;
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":52
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":52
  * 
  *     v = target
  *     while prev[v] != -1:             # <<<<<<<<<<<<<<
@@ -4988,7 +4988,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
     __pyx_t_6 = ((__pyx_v_prev[__pyx_v_v]) != -1L);
     if (!__pyx_t_6) break;
 
-    /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":53
+    /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":53
  *     v = target
  *     while prev[v] != -1:
  *         u = prev[v]             # <<<<<<<<<<<<<<
@@ -4997,7 +4997,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
  */
     __pyx_v_u = (__pyx_v_prev[__pyx_v_v]);
 
-    /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":54
+    /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":54
  *     while prev[v] != -1:
  *         u = prev[v]
  *         for i in range(n_edges):             # <<<<<<<<<<<<<<
@@ -5009,7 +5009,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
     for (__pyx_t_11 = 0; __pyx_t_11 < __pyx_t_10; __pyx_t_11+=1) {
       __pyx_v_i = __pyx_t_11;
 
-      /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":55
+      /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":55
  *         u = prev[v]
  *         for i in range(n_edges):
  *             if edge_index[i, 0] == u and edge_index[i, 1] == v:             # <<<<<<<<<<<<<<
@@ -5031,7 +5031,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
       __pyx_L14_bool_binop_done:;
       if (__pyx_t_6) {
 
-        /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":56
+        /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":56
  *         for i in range(n_edges):
  *             if edge_index[i, 0] == u and edge_index[i, 1] == v:
  *                 edge_path.push_back(i)             # <<<<<<<<<<<<<<
@@ -5045,7 +5045,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
           __PYX_ERR(0, 56, __pyx_L1_error)
         }
 
-        /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":57
+        /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":57
  *             if edge_index[i, 0] == u and edge_index[i, 1] == v:
  *                 edge_path.push_back(i)
  *                 break             # <<<<<<<<<<<<<<
@@ -5054,7 +5054,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
  */
         goto __pyx_L12_break;
 
-        /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":55
+        /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":55
  *         u = prev[v]
  *         for i in range(n_edges):
  *             if edge_index[i, 0] == u and edge_index[i, 1] == v:             # <<<<<<<<<<<<<<
@@ -5065,7 +5065,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
     }
     __pyx_L12_break:;
 
-    /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":58
+    /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":58
  *                 edge_path.push_back(i)
  *                 break
  *         v = u             # <<<<<<<<<<<<<<
@@ -5075,7 +5075,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
     __pyx_v_v = __pyx_v_u;
   }
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":60
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":60
  *         v = u
  * 
  *     for i in range(edge_path.size() - 1, -1, -1):             # <<<<<<<<<<<<<<
@@ -5085,7 +5085,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
   for (__pyx_t_9 = (__pyx_v_edge_path.size() - 1); __pyx_t_9 > -1; __pyx_t_9-=1) {
     __pyx_v_i = __pyx_t_9;
 
-    /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":61
+    /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":61
  * 
  *     for i in range(edge_path.size() - 1, -1, -1):
  *         reversed_path.push_back(edge_path[i])             # <<<<<<<<<<<<<<
@@ -5100,7 +5100,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
     }
   }
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":63
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":63
  *         reversed_path.push_back(edge_path[i])
  * 
  *     return reversed_path             # <<<<<<<<<<<<<<
@@ -5110,7 +5110,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
   __pyx_r = __pyx_v_reversed_path;
   goto __pyx_L0;
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":23
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":23
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * cdef vector[int] bfs(int source, int target, int n_nodes,             # <<<<<<<<<<<<<<
@@ -5129,7 +5129,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
     __Pyx_ErrFetch(&__pyx_type, &__pyx_value, &__pyx_tb);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_edge_index.rcbuffer->pybuffer);
   __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
-  __Pyx_AddTraceback("evsim.gradient_flow_matching.cython.get_TAM.bfs", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlevmatsim.gradient_flow_matching.cython.get_TAM.bfs", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_pretend_to_initialize(&__pyx_r);
   goto __pyx_L2;
   __pyx_L0:;
@@ -5140,7 +5140,7 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
   return __pyx_r;
 }
 
-/* "evsim/gradient_flow_matching/cython/get_TAM.pyx":65
+/* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":65
  *     return reversed_path
  * 
  * @cython.boundscheck(False)             # <<<<<<<<<<<<<<
@@ -5149,15 +5149,15 @@ static std::vector<int>  __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TA
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5evsim_22gradient_flow_matching_6cython_7get_TAM_1get_TAM(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_5rlevmatsim_22gradient_flow_matching_6cython_7get_TAM_1get_TAM(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_5evsim_22gradient_flow_matching_6cython_7get_TAM_1get_TAM = {"get_TAM", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5evsim_22gradient_flow_matching_6cython_7get_TAM_1get_TAM, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_5evsim_22gradient_flow_matching_6cython_7get_TAM_1get_TAM(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_5rlevmatsim_22gradient_flow_matching_6cython_7get_TAM_1get_TAM = {"get_TAM", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5rlevmatsim_22gradient_flow_matching_6cython_7get_TAM_1get_TAM, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_5rlevmatsim_22gradient_flow_matching_6cython_7get_TAM_1get_TAM(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -5287,13 +5287,13 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("evsim.gradient_flow_matching.cython.get_TAM.get_TAM", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlevmatsim.gradient_flow_matching.cython.get_TAM.get_TAM", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_centroids), __pyx_ptype_5numpy_ndarray, 1, "centroids", 0))) __PYX_ERR(0, 67, __pyx_L1_error)
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_edge_index), __pyx_ptype_5numpy_ndarray, 1, "edge_index", 0))) __PYX_ERR(0, 68, __pyx_L1_error)
-  __pyx_r = __pyx_pf_5evsim_22gradient_flow_matching_6cython_7get_TAM_get_TAM(__pyx_self, __pyx_v_centroids, __pyx_v_edge_index, __pyx_v_n_nodes, __pyx_v_n_edges, __pyx_v_n_clusters);
+  __pyx_r = __pyx_pf_5rlevmatsim_22gradient_flow_matching_6cython_7get_TAM_get_TAM(__pyx_self, __pyx_v_centroids, __pyx_v_edge_index, __pyx_v_n_nodes, __pyx_v_n_edges, __pyx_v_n_clusters);
 
   /* function exit code */
   goto __pyx_L0;
@@ -5310,7 +5310,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5evsim_22gradient_flow_matching_6cython_7get_TAM_get_TAM(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_centroids, PyArrayObject *__pyx_v_edge_index, int __pyx_v_n_nodes, int __pyx_v_n_edges, int __pyx_v_n_clusters) {
+static PyObject *__pyx_pf_5rlevmatsim_22gradient_flow_matching_6cython_7get_TAM_get_TAM(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_centroids, PyArrayObject *__pyx_v_edge_index, int __pyx_v_n_nodes, int __pyx_v_n_edges, int __pyx_v_n_clusters) {
   int __pyx_v_centroid1;
   int __pyx_v_centroid2;
   int __pyx_v_idx1;
@@ -5371,7 +5371,7 @@ static PyObject *__pyx_pf_5evsim_22gradient_flow_matching_6cython_7get_TAM_get_T
   }
   __pyx_pybuffernd_edge_index.diminfo[0].strides = __pyx_pybuffernd_edge_index.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_edge_index.diminfo[0].shape = __pyx_pybuffernd_edge_index.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_edge_index.diminfo[1].strides = __pyx_pybuffernd_edge_index.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_edge_index.diminfo[1].shape = __pyx_pybuffernd_edge_index.rcbuffer->pybuffer.shape[1];
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":76
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":76
  *         int centroid1, centroid2, idx1, idx2, idx
  *         vector[int] path
  *         np.ndarray[np.float64_t, ndim=3] TAM = np.zeros((n_edges, n_clusters, n_clusters), dtype=np.float64)             # <<<<<<<<<<<<<<
@@ -5433,17 +5433,17 @@ static PyObject *__pyx_pf_5evsim_22gradient_flow_matching_6cython_7get_TAM_get_T
   __pyx_v_TAM = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":77
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":77
  *         vector[int] path
  *         np.ndarray[np.float64_t, ndim=3] TAM = np.zeros((n_edges, n_clusters, n_clusters), dtype=np.float64)
  *         vector[vector[int]] adj = build_adjacency_list(edge_index, n_nodes)             # <<<<<<<<<<<<<<
  * 
  *     pbar = tqdm(total=(n_clusters * (n_clusters - 1)), desc="Creating TAM")
  */
-  __pyx_t_7 = __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TAM_build_adjacency_list(((PyArrayObject *)__pyx_v_edge_index), __pyx_v_n_nodes); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_7 = __pyx_f_5rlevmatsim_22gradient_flow_matching_6cython_7get_TAM_build_adjacency_list(((PyArrayObject *)__pyx_v_edge_index), __pyx_v_n_nodes); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 77, __pyx_L1_error)
   __pyx_v_adj = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_7);
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":79
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":79
  *         vector[vector[int]] adj = build_adjacency_list(edge_index, n_nodes)
  * 
  *     pbar = tqdm(total=(n_clusters * (n_clusters - 1)), desc="Creating TAM")             # <<<<<<<<<<<<<<
@@ -5466,7 +5466,7 @@ static PyObject *__pyx_pf_5evsim_22gradient_flow_matching_6cython_7get_TAM_get_T
   __pyx_v_pbar = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":81
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":81
  *     pbar = tqdm(total=(n_clusters * (n_clusters - 1)), desc="Creating TAM")
  * 
  *     for idx1 in range(n_clusters):             # <<<<<<<<<<<<<<
@@ -5478,7 +5478,7 @@ static PyObject *__pyx_pf_5evsim_22gradient_flow_matching_6cython_7get_TAM_get_T
   for (__pyx_t_10 = 0; __pyx_t_10 < __pyx_t_9; __pyx_t_10+=1) {
     __pyx_v_idx1 = __pyx_t_10;
 
-    /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":82
+    /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":82
  * 
  *     for idx1 in range(n_clusters):
  *         for idx2 in range(n_clusters):             # <<<<<<<<<<<<<<
@@ -5490,7 +5490,7 @@ static PyObject *__pyx_pf_5evsim_22gradient_flow_matching_6cython_7get_TAM_get_T
     for (__pyx_t_13 = 0; __pyx_t_13 < __pyx_t_12; __pyx_t_13+=1) {
       __pyx_v_idx2 = __pyx_t_13;
 
-      /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":83
+      /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":83
  *     for idx1 in range(n_clusters):
  *         for idx2 in range(n_clusters):
  *             if idx1 == idx2:             # <<<<<<<<<<<<<<
@@ -5500,7 +5500,7 @@ static PyObject *__pyx_pf_5evsim_22gradient_flow_matching_6cython_7get_TAM_get_T
       __pyx_t_14 = (__pyx_v_idx1 == __pyx_v_idx2);
       if (__pyx_t_14) {
 
-        /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":84
+        /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":84
  *         for idx2 in range(n_clusters):
  *             if idx1 == idx2:
  *                 continue             # <<<<<<<<<<<<<<
@@ -5509,7 +5509,7 @@ static PyObject *__pyx_pf_5evsim_22gradient_flow_matching_6cython_7get_TAM_get_T
  */
         goto __pyx_L5_continue;
 
-        /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":83
+        /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":83
  *     for idx1 in range(n_clusters):
  *         for idx2 in range(n_clusters):
  *             if idx1 == idx2:             # <<<<<<<<<<<<<<
@@ -5518,7 +5518,7 @@ static PyObject *__pyx_pf_5evsim_22gradient_flow_matching_6cython_7get_TAM_get_T
  */
       }
 
-      /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":86
+      /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":86
  *                 continue
  * 
  *             pbar.update(1)             # <<<<<<<<<<<<<<
@@ -5551,7 +5551,7 @@ static PyObject *__pyx_pf_5evsim_22gradient_flow_matching_6cython_7get_TAM_get_T
       }
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":88
+      /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":88
  *             pbar.update(1)
  * 
  *             centroid1 = centroids[idx1]             # <<<<<<<<<<<<<<
@@ -5561,7 +5561,7 @@ static PyObject *__pyx_pf_5evsim_22gradient_flow_matching_6cython_7get_TAM_get_T
       __pyx_t_16 = __pyx_v_idx1;
       __pyx_v_centroid1 = (*__Pyx_BufPtrStrided1d(__pyx_t_5numpy_int32_t *, __pyx_pybuffernd_centroids.rcbuffer->pybuffer.buf, __pyx_t_16, __pyx_pybuffernd_centroids.diminfo[0].strides));
 
-      /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":89
+      /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":89
  * 
  *             centroid1 = centroids[idx1]
  *             centroid2 = centroids[idx2]             # <<<<<<<<<<<<<<
@@ -5571,17 +5571,17 @@ static PyObject *__pyx_pf_5evsim_22gradient_flow_matching_6cython_7get_TAM_get_T
       __pyx_t_16 = __pyx_v_idx2;
       __pyx_v_centroid2 = (*__Pyx_BufPtrStrided1d(__pyx_t_5numpy_int32_t *, __pyx_pybuffernd_centroids.rcbuffer->pybuffer.buf, __pyx_t_16, __pyx_pybuffernd_centroids.diminfo[0].strides));
 
-      /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":91
+      /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":91
  *             centroid2 = centroids[idx2]
  * 
  *             path = bfs(centroid1, centroid2, n_nodes, edge_index, adj)             # <<<<<<<<<<<<<<
  * 
  *             TAM[path, idx1, idx2] = 1
  */
-      __pyx_t_17 = __pyx_f_5evsim_22gradient_flow_matching_6cython_7get_TAM_bfs(__pyx_v_centroid1, __pyx_v_centroid2, __pyx_v_n_nodes, ((PyArrayObject *)__pyx_v_edge_index), __pyx_v_adj); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 91, __pyx_L1_error)
+      __pyx_t_17 = __pyx_f_5rlevmatsim_22gradient_flow_matching_6cython_7get_TAM_bfs(__pyx_v_centroid1, __pyx_v_centroid2, __pyx_v_n_nodes, ((PyArrayObject *)__pyx_v_edge_index), __pyx_v_adj); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 91, __pyx_L1_error)
       __pyx_v_path = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_17);
 
-      /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":93
+      /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":93
  *             path = bfs(centroid1, centroid2, n_nodes, edge_index, adj)
  * 
  *             TAM[path, idx1, idx2] = 1             # <<<<<<<<<<<<<<
@@ -5611,7 +5611,7 @@ static PyObject *__pyx_pf_5evsim_22gradient_flow_matching_6cython_7get_TAM_get_T
     }
   }
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":95
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":95
  *             TAM[path, idx1, idx2] = 1
  * 
  *     return TAM             # <<<<<<<<<<<<<<
@@ -5622,7 +5622,7 @@ static PyObject *__pyx_pf_5evsim_22gradient_flow_matching_6cython_7get_TAM_get_T
   __pyx_r = ((PyObject *)__pyx_v_TAM);
   goto __pyx_L0;
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":65
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":65
  *     return reversed_path
  * 
  * @cython.boundscheck(False)             # <<<<<<<<<<<<<<
@@ -5645,7 +5645,7 @@ static PyObject *__pyx_pf_5evsim_22gradient_flow_matching_6cython_7get_TAM_get_T
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_centroids.rcbuffer->pybuffer);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_edge_index.rcbuffer->pybuffer);
   __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
-  __Pyx_AddTraceback("evsim.gradient_flow_matching.cython.get_TAM.get_TAM", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlevmatsim.gradient_flow_matching.cython.get_TAM.get_TAM", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   goto __pyx_L2;
   __pyx_L0:;
@@ -5692,8 +5692,8 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_desc, __pyx_k_desc, sizeof(__pyx_k_desc), 0, 0, 1, 1},
     {&__pyx_n_s_dtype, __pyx_k_dtype, sizeof(__pyx_k_dtype), 0, 0, 1, 1},
     {&__pyx_n_s_edge_index, __pyx_k_edge_index, sizeof(__pyx_k_edge_index), 0, 0, 1, 1},
-    {&__pyx_kp_s_evsim_gradient_flow_matching_cyt, __pyx_k_evsim_gradient_flow_matching_cyt, sizeof(__pyx_k_evsim_gradient_flow_matching_cyt), 0, 0, 1, 0},
-    {&__pyx_n_s_evsim_gradient_flow_matching_cyt_2, __pyx_k_evsim_gradient_flow_matching_cyt_2, sizeof(__pyx_k_evsim_gradient_flow_matching_cyt_2), 0, 0, 1, 1},
+    {&__pyx_kp_s_rlevmatsim_gradient_flow_matching_cyt, __pyx_k_rlevmatsim_gradient_flow_matching_cyt, sizeof(__pyx_k_rlevmatsim_gradient_flow_matching_cyt), 0, 0, 1, 0},
+    {&__pyx_n_s_rlevmatsim_gradient_flow_matching_cyt_2, __pyx_k_rlevmatsim_gradient_flow_matching_cyt_2, sizeof(__pyx_k_rlevmatsim_gradient_flow_matching_cyt_2), 0, 0, 1, 1},
     {&__pyx_n_s_float64, __pyx_k_float64, sizeof(__pyx_k_float64), 0, 0, 1, 1},
     {&__pyx_n_s_get_TAM, __pyx_k_get_TAM, sizeof(__pyx_k_get_TAM), 0, 0, 1, 1},
     {&__pyx_n_s_idx, __pyx_k_idx, sizeof(__pyx_k_idx), 0, 0, 1, 1},
@@ -5761,7 +5761,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":65
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":65
  *     return reversed_path
  * 
  * @cython.boundscheck(False)             # <<<<<<<<<<<<<<
@@ -5771,7 +5771,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__5 = PyTuple_Pack(14, __pyx_n_s_centroids, __pyx_n_s_edge_index, __pyx_n_s_n_nodes, __pyx_n_s_n_edges, __pyx_n_s_n_clusters, __pyx_n_s_centroid1, __pyx_n_s_centroid2, __pyx_n_s_idx1, __pyx_n_s_idx2, __pyx_n_s_idx, __pyx_n_s_path, __pyx_n_s_TAM, __pyx_n_s_adj, __pyx_n_s_pbar); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 65, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
-  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(5, 0, 0, 14, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_evsim_gradient_flow_matching_cyt, __pyx_n_s_get_TAM, 65, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(0, 65, __pyx_L1_error)
+  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(5, 0, 0, 14, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_rlevmatsim_gradient_flow_matching_cyt, __pyx_n_s_get_TAM, 65, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(0, 65, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -6168,14 +6168,14 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_evsim__gradient_flow_matching__cython__get_TAM) {
+  if (__pyx_module_is_main_rlevmatsim__gradient_flow_matching__cython__get_TAM) {
     if (PyObject_SetAttr(__pyx_m, __pyx_n_s_name, __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "evsim.gradient_flow_matching.cython.get_TAM")) {
-      if (unlikely((PyDict_SetItemString(modules, "evsim.gradient_flow_matching.cython.get_TAM", __pyx_m) < 0))) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "rlevmatsim.gradient_flow_matching.cython.get_TAM")) {
+      if (unlikely((PyDict_SetItemString(modules, "rlevmatsim.gradient_flow_matching.cython.get_TAM", __pyx_m) < 0))) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -6196,7 +6196,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":3
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":3
  * from libcpp.vector cimport vector
  * from libcpp.queue cimport queue
  * import numpy as np             # <<<<<<<<<<<<<<
@@ -6208,7 +6208,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_2) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":6
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":6
  * cimport numpy as np
  * cimport cython
  * from tqdm import tqdm             # <<<<<<<<<<<<<<
@@ -6229,19 +6229,19 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":65
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":65
  *     return reversed_path
  * 
  * @cython.boundscheck(False)             # <<<<<<<<<<<<<<
  * @cython.wraparound(False)
  * def get_TAM(np.ndarray[np.int32_t, ndim=1] centroids,
  */
-  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_5evsim_22gradient_flow_matching_6cython_7get_TAM_1get_TAM, 0, __pyx_n_s_get_TAM, NULL, __pyx_n_s_evsim_gradient_flow_matching_cyt_2, __pyx_d, ((PyObject *)__pyx_codeobj__6)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 65, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_5rlevmatsim_22gradient_flow_matching_6cython_7get_TAM_1get_TAM, 0, __pyx_n_s_get_TAM, NULL, __pyx_n_s_rlevmatsim_gradient_flow_matching_cyt_2, __pyx_d, ((PyObject *)__pyx_codeobj__6)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 65, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_get_TAM, __pyx_t_3) < 0) __PYX_ERR(0, 65, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "evsim/gradient_flow_matching/cython/get_TAM.pyx":1
+  /* "rlevmatsim/gradient_flow_matching/cython/get_TAM.pyx":1
  * from libcpp.vector cimport vector             # <<<<<<<<<<<<<<
  * from libcpp.queue cimport queue
  * import numpy as np
@@ -6259,7 +6259,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_3);
   if (__pyx_m) {
     if (__pyx_d && stringtab_initialized) {
-      __Pyx_AddTraceback("init evsim.gradient_flow_matching.cython.get_TAM", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init rlevmatsim.gradient_flow_matching.cython.get_TAM", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     #if !CYTHON_USE_MODULE_STATE
     Py_CLEAR(__pyx_m);
@@ -6273,7 +6273,7 @@ if (!__Pyx_RefNanny) {
     }
     #endif
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init evsim.gradient_flow_matching.cython.get_TAM");
+    PyErr_SetString(PyExc_ImportError, "init rlevmatsim.gradient_flow_matching.cython.get_TAM");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
