@@ -65,6 +65,7 @@ class MatsimXMLDataset(Dataset):
             bidict()
         )  #: key: edge attribute name, value: index in edge attribute list
         self.graph: Data = Data()
+        self.linegraph_transform = LineGraph()
         self.charger_list = [NoneCharger, StaticCharger, DynamicCharger]
         self.num_charger_types = len(self.charger_list)
         self.max_charger_cost = 0
@@ -170,6 +171,46 @@ class MatsimXMLDataset(Dataset):
             self.graph.edge_attr[:, :3]
         )
         self.state = self.graph.edge_attr
+
+    def sample_chargers(
+        self,
+    ):
+        """
+        Create a chargers XML file for MATSim using a multi-discrete action space.
+
+        Args:
+            charger_xml_path (Path): Path to save the chargers XML file.
+            charger_list (list): List of charger type objects.
+            actions (spaces.MultiDiscrete): Action space with dimension (num_edges),
+                where each value corresponds to the index of the charger list
+                (0 is no charger).
+            link_id_mapping (bidict): Mapping of link IDs to indices.
+        """
+        chargers = ET.Element("chargers")
+        actions = torch.randint(0, 3, size=(self.linegraph.num_nodes,))
+
+        for idx, action in enumerate(actions):
+            if action == 0:
+                continue
+            charger = self.charger_list[action]
+            link_id = self.edge_mapping.inv[idx]
+            ET.SubElement(
+                chargers,
+                "charger",
+                id=str(idx),
+                link=str(link_id),
+                plug_power=str(charger.plug_power),
+                plug_count=str(charger.plug_count),
+                type=charger.type,
+            )
+
+        tree = ET.ElementTree(chargers)
+        with open(self.charger_xml_path, "wb") as f:
+            f.write(b'<?xml version="1.0" ?>\n')
+            f.write(
+                b'<!DOCTYPE chargers SYSTEM "http://matsim.org/files/dtd/chargers_v1.dtd">\n'
+            )
+            tree.write(f)
 
     def parse_charger_network_get_charger_cost(self):
         """

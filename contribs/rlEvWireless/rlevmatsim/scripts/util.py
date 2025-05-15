@@ -87,13 +87,9 @@ def save_server_output(save_dir, response, filetype):
     with open(zip_filename, "wb") as f:
         f.write(response.content)
 
-    print(f"Saved zip file: {zip_filename}")
-
     # Extract the zip file
     with zipfile.ZipFile(zip_filename, "r") as zip_ref:
         zip_ref.extractall(extract_folder)
-
-    print(f"Extracted files to: {extract_folder}")
 
 
 def send_reward_request(save_dir, dataset, time_string):
