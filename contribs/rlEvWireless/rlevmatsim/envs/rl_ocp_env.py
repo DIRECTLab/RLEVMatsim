@@ -1,21 +1,32 @@
 import numpy as np
 import torch
 from gymnasium.spaces import Box
-from harl.envs.flowsim.flowsim_dataset import FlowSimDataset
-from datetime import datetime
 from pathlib import Path
 import random
 import xml.etree.ElementTree as ET
 import os
-from harl.envs.flowsim.cython.reward_core import sample_od_pairs
-from harl.envs.flowsim.cython.cy_bfs import bfs
+from rlevmatsim.classes.chargers import *
+from typing import List
+from gymnasium import spaces
+from rlevmatsim.classes.matsim_gnn import MatsimGNN
 
-class FlowSimEnv:
+
+class RLOCPEnv:
     """
     A custom Gymnasium environment for Matsim graph-based simulations.
     """
 
-    def __init__(self, network_path, counts_path, save_dir, num_clusters, seed, t=24, **kwargs):
+    def __init__(self, 
+                 config_path, 
+                 network_path, 
+                 counts_path, 
+                 dataset,
+                 charger_sim_model,
+                 save_dir, 
+                 num_clusters, 
+                 seed, 
+                 num_agents=100, 
+                 **kwargs):
         """
         Initialize the environment.
 
@@ -25,61 +36,26 @@ class FlowSimEnv:
             save_dir (str): Directory to save outputs.
         """
         # Initialize the dataset with custom variables
-        self.t = t
         self.network_path: Path = Path(network_path)
         self.counts_path: Path = Path(counts_path)
         self.num_clusters = num_clusters
-        # each agent monitors a single hour for every cluster
-        self.n_agents = num_clusters*t
+        self.config_path: Path = Path(config_path)
+        self.charger_list: List[Charger] = [
+            NoneCharger,
+            DynamicCharger,
+            StaticCharger,
+        ]
+        # each agent monitors a cluster and determines the chargers that should go there
+        self.n_agents = num_clusters
 
-        self.dataset = FlowSimDataset(
-            self.network_path,
-            self.counts_path, 
-            self.num_clusters
+        self.action_space: spaces.MultiDiscrete = spaces.MultiDiscrete(
+            [self.num_charger_types] * self.dataset.linegraph.num_nodes
         )
+
+        self.dataset = dataset
         self.reward: float = 0
         self.best_reward = -np.inf
         
-        """
-        The action represents the log_10 of the quantity of cars leaving every cluster at every hour,
-        we limit it to -1 to 2 or 0.1 (0) to 100 cars per cluster per hour.
-        """
-
-        self.done: bool = False
-        self.best_output_response = None
-
-        self.action_space : Box = self.repeat(
-            Box(
-                low=-1,
-                high=1,
-                shape=(self.num_clusters,)
-            )
-        )
-
-        self.observation_space : Box = self.repeat(
-            Box(
-                low=-1,
-                high=1,
-                shape=(self.num_clusters,)
-            )
-        )
-
-        self.share_observation_space : Box = \
-            Box(
-                low=-1,
-                high=1,
-                shape=(self.num_clusters * self.num_clusters * t,)
-            )
-        
-
-        self.edge_index = self.dataset.target_graph.edge_index.t().numpy().astype(np.int32)
-        self.num_nodes = len(self.dataset.target_graph.x)
-        # shape (24, n_clusters, n_clusters)
-        self.cluster_flow_tensor = np.random.rand(t, self.num_clusters, self.num_clusters)
-        # shape (n_edges, 24)
-        self.graph_flow_tensor = np.zeros_like(self.dataset.target_graph.edge_attr)
-
-        self.target_flows = self.dataset.target_graph.edge_attr[self.dataset.sensor_idxs, :].numpy()
 
     def reset(self, **kwargs):
         """
