@@ -194,7 +194,6 @@ class MatsimXMLDataset(Dataset):
                 continue
             charger = self.charger_list[action]
             link_id = self.edge_mapping.inv[idx]
-            
             ET.SubElement(
                 chargers,
                 "charger",
