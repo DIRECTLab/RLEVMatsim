@@ -19,6 +19,11 @@ def train(args):
     writer = SummaryWriter(args.results_dir)
 
     pbar = tqdm(range(args.epochs))
+
+    with open(Path(args.results_dir, "args.txt"), "w") as f:
+        for key, val in args.__dict__.items():
+            f.write(f"{key}:{val}\n")
+
     model.train()
     for epoch in pbar:
         x, edge_index = args.dataset.linegraph.x.to(args.device), args.dataset.linegraph.edge_index.to(args.device) 
@@ -32,6 +37,9 @@ def train(args):
         writer.add_scalar("Loss", loss.item(), epoch)
         optimizer.step()
         args.dataset.sample_chargers()
+    
+    with open(Path(args.results_dir) / "model.pt") as f:
+        torch.save(model, f)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

@@ -80,12 +80,10 @@ def create_chargers_xml(link_ids: list, output_file_path, percent_dynamic=0.0):
     chargers = ET.Element("chargers")
 
     num_dynamic = int(num_chargers * percent_dynamic)
-    num_static = num_chargers - num_dynamic
 
     link_ids = np.array(link_ids)
     dynamic_chargers = np.random.choice(link_ids, num_dynamic, replace=False)
-    link_ids = np.setdiff1d(link_ids, dynamic_chargers)
-    static_chargers = np.random.choice(link_ids, num_static, replace=False)
+    static_chargers = np.setdiff1d(link_ids, dynamic_chargers)
 
     id = 0
     for link_id in dynamic_chargers:
@@ -133,11 +131,11 @@ def main(args):
         num_chargers = args.num_chargers
     elif args.percent is not None:
         num_links = len(link_ids)
-        num_chargers = int(num_links * (args.percent / 100))
+        num_chargers = int(num_links * args.percent)
     else:
         raise ValueError("Either num_chargers or percent must be specified")
 
-    link_ids = np.random.choice(link_ids, num_chargers)
+    link_ids = np.random.choice(link_ids, num_chargers, replace=False)
     create_chargers_xml(
         link_ids, os.path.abspath(args.output_file), args.percent_dynamic
     )
@@ -154,7 +152,8 @@ if __name__ == "__main__":
         "--num_chargers", type=int, help="Number of chargers to generate"
     )
     parser.add_argument(
-        "--percent", type=float, help="Percentage of links to place chargers on"
+        "--percent", type=float, help="Percentage of links to place chargers on. "
+        "1.0 = 100 percent, 0.0 = 0 percent."
     )
     parser.add_argument(
         "--percent_dynamic",
