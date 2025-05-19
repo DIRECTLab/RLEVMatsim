@@ -34,16 +34,7 @@ def train(args):
     env_args["dataset"] = dataset
     env_args["charge_model"] = model
 
-    with open(Path(args.results_dir, "args.txt"), "w") as f:
-        f.write("Command Line args:\n")
-        for key, val in args.__dict__.items():
-            f.write(f"{key}:{val}\n")
-        f.write("\nEnv args:\n")
-        for key, val in env_args.__dict__.items():
-            f.write(f"{key}:{val}\n")
-        f.write("\nAlgo args:\n")
-        for key, val in algo_args.__dict__.items():
-            f.write(f"{key}:{val}\n")
+    args = vars(args)
 
     runner = RUNNER_REGISTRY[args["algo"]](args, algo_args, env_args)
     runner.run()
@@ -79,7 +70,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--env",
         type=str,
-        default="RLOCP",
+        default="ocp",
         help="Environment name.",
     )
     parser.add_argument(
