@@ -2,7 +2,7 @@ eval "$(conda shell.bash hook)"
 conda create -n rlmatsimenv python=3.10 -y
 conda activate rlmatsimenv
 conda install -c conda-forge pandas numpy matplotlib tqdm bidict gymnasium requests tensorboard rich osmnx seaborn -y
-git clone https://github.com/PKU-MARL/HARL.git ~/.local/harl
+git clone https://github.com/Isaacwilliam4/MatsimHARL.git ~/.local/harl
 cd ~/.local/harl
 pip install -e .
 cd -

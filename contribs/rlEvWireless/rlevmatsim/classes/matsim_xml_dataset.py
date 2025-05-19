@@ -24,7 +24,6 @@ class MatsimXMLDataset(Dataset):
     def __init__(
         self,
         config_path: Path,
-        results_dir: Path,
         time_string: str,
         num_clusters: int,
     ):
@@ -43,7 +42,6 @@ class MatsimXMLDataset(Dataset):
         shutil.copytree(config_path.parent, tmp_dir)
 
         self.config_path = Path(tmp_dir / config_path.name)
-        self.results_dir = Path(results_dir)
 
         (
             network_file_name,
@@ -206,8 +204,8 @@ class MatsimXMLDataset(Dataset):
         self.clusters = {k: v for k,v in sorted(self.clusters.items(), key=lambda x: x[0])}
         self.save_clusters()
 
-    def save_clusters(self):
-        filepath = Path(self.results_dir / "clusters.txt")
+    def save_clusters(self, dir):
+        filepath = Path(dir / "clusters.txt")
         if not os.path.exists(filepath.parent):
             os.makedirs(filepath.parent)
         with open(filepath, "w") as f:

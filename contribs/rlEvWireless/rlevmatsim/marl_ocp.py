@@ -4,8 +4,6 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.nn.init as init
 from torch_geometric.nn import GCNConv, global_mean_pool
-from rlevmatsim.classes.matsim_gnn import MatsimGNN
-from rlevmatsim.classes.matsim_xml_dataset import MatsimXMLDataset
 from pathlib import Path
 from torch.utils.tensorboard import SummaryWriter
 from datetime import datetime
@@ -13,55 +11,53 @@ from rlevmatsim.scripts.util import send_reward_request
 from tqdm import tqdm
 import yaml
 from harl.runners import RUNNER_REGISTRY
+from harl.envs.ocp.matsim_gnn import MatsimGNN
+from harl.envs.ocp.matsim_xml_dataset import MatsimXMLDataset
 
 def train(args):
-    model = args.model.to(args.device)
-
     with open(args.args_config, "r") as f:
         algo_args = yaml.load(f, Loader=yaml.FullLoader)
     with open(args.env_config, "r") as f:
         env_args = yaml.load(f, Loader=yaml.FullLoader)
 
-    criterion = nn.MSELoss()
-    optimizer = optim.Adam(model.parameters(), lr=args.lr)
-    writer = SummaryWriter(args.results_dir)
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    dataset = MatsimXMLDataset(Path(env_args["config_path"]), env_args["num_agents_per_env"])
+    env_args["dataset"] = dataset
+    env_args["device"] = device
 
-    pbar = tqdm(range(args.epochs))
+    if (env_args["charge_model_path"] is not None):
+        with open(env_args["charge_model_path"], "rb") as f:
+            model = torch.load(f)
+    else:
+        model = MatsimGNN(len(dataset.edge_attr_mapping))
+
+    env_args["dataset"] = dataset
+    env_args["charge_model"] = model
 
     with open(Path(args.results_dir, "args.txt"), "w") as f:
+        f.write("Command Line args:\n")
         for key, val in args.__dict__.items():
             f.write(f"{key}:{val}\n")
+        f.write("\nEnv args:\n")
+        for key, val in env_args.__dict__.items():
+            f.write(f"{key}:{val}\n")
+        f.write("\nAlgo args:\n")
+        for key, val in algo_args.__dict__.items():
+            f.write(f"{key}:{val}\n")
 
-    model.train()
-    for epoch in pbar:
-        x, edge_index = args.dataset.linegraph.x.to(args.device), args.dataset.linegraph.edge_index.to(args.device) 
-        output = model(x, edge_index)
-        response = send_reward_request(args.results_dir, args.dataset, args.time_str)
-        target = torch.tensor(response[0]).to(args.device)
-        optimizer.zero_grad()
-        loss = criterion(output, target)
-        pbar.set_postfix(loss=loss.item())
-        loss.backward()
-        writer.add_scalar("Loss", loss.item(), epoch)
-        optimizer.step()
-        args.dataset.sample_chargers()
-    with open(Path(args.results_dir) / "model.pt", "wb") as f:
-        torch.save(model, f)
+    runner = RUNNER_REGISTRY[args["algo"]](args, algo_args, env_args)
+    runner.run()
+    runner.close()
+        
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("matsim_config_path", type=str, help="Path to the matsim config.xml file")
-    parser.add_argument("--num_agents_per_env", type=int, required=True, help="Number of agents (clusters) for environment for OCP")
     parser.add_argument(
         "--args_config", type=str, required=True, help="Path to model yaml config file"
     )
     parser.add_argument(
         "--env_config", type=str, required=True, help="Path to environment yaml config file"
     )
-    parser.add_argument("--model_path", type=str, default=None, help="Path to trained model to continue training")
-    parser.add_argument("--results_dir", type=str, default="./results", help="path to directory where this runs results will be saved")
-    parser.add_argument("--epochs", type=int, default=10)
-    parser.add_argument("--lr", type=float, default=1e-3)
     parser.add_argument(
         "--algo",
         type=str,
@@ -86,26 +82,8 @@ if __name__ == "__main__":
         default="RLOCP",
         help="Environment name.",
     )
-    args = parser.parse_args()
     parser.add_argument(
         "--exp_name", type=str, default="marl_ocp", help="Experiment name."
     )
-
-    def process(arg):
-        try:
-            return eval(arg)
-        except:
-            return arg
-
-    args.time_str = datetime.now().strftime('%Y%m%d_%H%M%S_%f')
-
-    args.results_dir = Path(Path(args.results_dir) / args.time_str)
-    args.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    args.dataset = MatsimXMLDataset(Path(args.matsim_config_path), args.results_dir, args.time_str, args.num_agents_per_env)
-
-    if (args.model_path is not None):
-        with open(args.model_path, "rb") as f:
-            args.model = torch.load(f)
-    else:
-        args.model = MatsimGNN(len(args.dataset.edge_attr_mapping))
+    args = parser.parse_args()
     train(args)
