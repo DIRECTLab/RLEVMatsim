@@ -1,14 +1,20 @@
 import numpy as np
 import torch
-from gymnasium.spaces import Box
 from pathlib import Path
-import random
-import xml.etree.ElementTree as ET
-import os
 from rlevmatsim.classes.chargers import *
-from typing import List
+from gymnasium.spaces import Box
 from gymnasium import spaces
 from rlevmatsim.classes.matsim_gnn import MatsimGNN
+from rlevmatsim.classes.matsim_xml_dataset import MatsimXMLDataset
+import numpy as np
+import pandas as pd
+import requests
+from pathlib import Path
+import zipfile
+import json
+import torch.nn as nn
+import torch.optim as optim
+from torch.utils.tensorboard import SummaryWriter
 
 
 class RLOCPEnv:
@@ -17,15 +23,9 @@ class RLOCPEnv:
     """
 
     def __init__(self, 
-                 config_path, 
-                 network_path, 
-                 counts_path, 
-                 dataset,
-                 charger_sim_model,
-                 save_dir, 
-                 num_clusters, 
-                 seed, 
-                 num_agents=100, 
+                 dataset: MatsimXMLDataset,
+                 charge_model: MatsimGNN,
+                 charge_model_loop: int = 100
                  **kwargs):
         """
         Initialize the environment.
@@ -35,27 +35,33 @@ class RLOCPEnv:
             num_agents (int): Number of agents in the environment.
             save_dir (str): Directory to save outputs.
         """
-        # Initialize the dataset with custom variables
-        self.network_path: Path = Path(network_path)
-        self.counts_path: Path = Path(counts_path)
-        self.num_clusters = num_clusters
-        self.config_path: Path = Path(config_path)
-        self.charger_list: List[Charger] = [
-            NoneCharger,
-            DynamicCharger,
-            StaticCharger,
-        ]
-        # each agent monitors a cluster and determines the chargers that should go there
-        self.n_agents = num_clusters
 
-        self.action_space: spaces.MultiDiscrete = spaces.MultiDiscrete(
-            [self.num_charger_types] * self.dataset.linegraph.num_nodes
+        # each agent monitors a cluster and determines the chargers that should go there
+        self.num_agents = dataset.num_clusters
+        self.dataset = dataset
+        self.charge_model = charge_model
+        self.iteration = 0
+        self.charge_model_loop = charge_model_loop
+
+        self.criterion = nn.MSELoss()
+        self.optimizer = optim.Adam(self.charge_model.parameters(), lr=1e-3)
+        self.writer = SummaryWriter(self.dataset.results_dir)
+
+        self.action_space = [
+            spaces.MultiDiscrete([self.dataset.num_charger_types]) * 
+            len(cluster) for _, cluster in self.dataset.clusters.items() 
+        ]
+
+        self.observation_space : Box = self.repeat(
+            Box(
+                low=0,
+                high=1,
+                shape=self.dataset.linegraph.x.shape
+            )
         )
 
-        self.dataset = dataset
         self.reward: float = 0
         self.best_reward = -np.inf
-        
 
     def reset(self, **kwargs):
         """
@@ -65,102 +71,135 @@ class RLOCPEnv:
             np.ndarray: Initial state of the environment.
             dict: Additional information.
         """
-        return self.cluster_flow_tensor.reshape(self.t*self.num_clusters, self.num_clusters)
+        return  self.dataset.linegraph.x
 
+    def save_server_output(self, response, filetype):
+        """
+        Save server output to a zip file and extract its contents.
 
-    def compute_reward(self):
-        flows = np.round(self.cluster_flow_tensor, 0).astype(np.int32)
-        self.od_result = sample_od_pairs(flows, self.dataset.clusters, self.num_clusters)
-        self.graph_flow_tensor = np.zeros_like(self.dataset.target_graph.edge_attr)
-        for (hour, origin_node_idx, dest_node_idx), count in self.od_result.items():
-            edge_path = bfs(origin_node_idx, dest_node_idx, self.num_nodes, self.edge_index)
-            self.graph_flow_tensor[edge_path, hour] += count
+        Args:
+            response (requests.Response): Server response object.
+            filetype (str): Type of file to save.
+        """
+        zip_filename = Path(self.dataset.results_dir, f"{filetype}.zip")
+        extract_folder = Path(self.dataset.results_dir, filetype)
 
-        pred_flows = self.graph_flow_tensor[self.dataset.sensor_idxs, :]
-        abs_diff = np.abs(pred_flows - self.target_flows).sum()
-        denominator = (np.log(abs_diff + 1) + 1)
+        # Use a lock to prevent simultaneous access
+        # lock = FileLock(lock_file)
 
-        res = 1 / denominator
+        # with lock:
+        # Save the zip file
+        with open(zip_filename, "wb") as f:
+            f.write(response.content)
 
-        return res
-    
+        # Extract the zip file
+        with zipfile.ZipFile(zip_filename, "r") as zip_ref:
+            zip_ref.extractall(extract_folder)
 
-    def save_plans_from_flow_res(self, filepath:Path):
-        if not os.path.exists(filepath.parent):
-            os.makedirs(filepath.parent)
+    def send_reward_request(self, dataset, time_string):
+        """
+        Send a reward request to the server and process the response.
 
-        if len(self.od_result) > 0:
-            plans = ET.Element("plans", attrib={"xml:lang": "de-CH"})
-            person_ids = []
-            person_count = 1
+        Returns:
+            tuple: Reward value and server response.
+        """
+        url = "http://localhost:8000/getReward"
+        files = {
+            "config": open(dataset.config_path, "rb"),
+            "network": open(dataset.network_xml_path, "rb"),
+            "plans": open(dataset.plan_xml_path, "rb"),
+            "vehicles": open(dataset.vehicle_xml_path, "rb"),
+            "chargers": open(dataset.charger_xml_path, "rb"),
+            "consumption_map": open(dataset.consumption_map_path, "rb"),
+        }
+        response = requests.post(
+            url, params={"folder_name": time_string}, files=files
+        )
+        json_response = json.loads(response.headers["X-response-message"])
+        reward = json_response["reward"]
+        filetype = json_response["filetype"]
 
-            for (hour, origin_node_idx, dest_node_idx), count in self.od_result.items():
-                origin_node_id = self.dataset.node_mapping.inverse[origin_node_idx]
-                dest_node_id = self.dataset.node_mapping.inverse[dest_node_idx]
-                origin_node = self.dataset.node_coords[origin_node_id]
-                dest_node = self.dataset.node_coords[dest_node_id]
-                start_time = hour
-                end_time = (start_time + 8) % self.t
+        if filetype == "initialoutput":
+            self.save_server_output(response, filetype)
 
-                for _ in range(count):
-                    person = ET.SubElement(plans, "person", id=str(person_count))
-                    person_ids.append(person_count)
-                    person_count += 1
-                    plan = ET.SubElement(person, "plan", selected="yes")
+        return float(reward), response
 
-                    minute = random.randint(0,59)
-                    minute_str = "0" + str(minute) if minute < 10 else str(minute)
-                    start_time_str = (
-                        f"0{start_time}:{minute_str}:00" if start_time < 10 else f"{start_time}:{minute_str}:00"
-                    )
-                    end_time_str = (
-                        f"0{end_time}:{minute_str}:00" if end_time < 10 else f"{end_time}:{minute_str}:00"
-                    )
-                    ET.SubElement(
-                        plan,
-                        "act",
-                        type="h",
-                        x=str(origin_node[0]),
-                        y=str(origin_node[1]),
-                        end_time=start_time_str,
-                    )
-                    ET.SubElement(plan, "leg", mode="car")
-                    ET.SubElement(
-                        plan,
-                        "act",
-                        type="h",
-                        x=str(dest_node[0]),
-                        y=str(dest_node[1]),
-                        start_time=start_time_str,
-                        end_time=end_time_str,
-                    )
+    def save_charger_config_to_csv(self):
+        """
+        Save the current charger configuration to a CSV file.
 
-            tree = ET.ElementTree(plans)
-            with open(filepath, "wb") as f:
-                f.write(b'<?xml version="1.0" ?>\n')
-                f.write(
-                    b'<!DOCTYPE plans SYSTEM "http://www.matsim.org/files/dtd/plans_v4.dtd">\n'
-                )
-                tree.write(f)
+        Args:
+            csv_path (str): Path to save the CSV file.
+        """
+        static_chargers = []
+        dynamic_chargers = []
+        charger_config = self.dataset.graph.edge_attr[:, -self.dataset.num_charger_types:]
+
+        for idx, row in enumerate(charger_config):
+            if not row[0]:
+                if row[1]:
+                    dynamic_chargers.append(int(self.dataset.edge_mapping.inverse[idx]))
+                elif row[2]:
+                    static_chargers.append(int(self.dataset.edge_mapping.inverse[idx]))
+
+        df = pd.DataFrame(
+            {
+                "reward": [self.reward],
+                "cost": [self.dataset.charger_cost.item()],
+                "static_chargers": [static_chargers],
+                "dynamic_chargers": [dynamic_chargers],
+            }
+        )
+        df.to_csv(Path(self.dataset.results_dir / "best_chargers.csv"), index=False)
 
     def step(self, actions):
         """
         Take an action and return the next state, reward, done, and info.
 
         Args:
-            actions (np.ndarray): Actions to take.
+            actions (list): Actions to perform.
 
         Returns:
             tuple: Next state, reward, done flags, and additional info.
         """
-        self.cluster_flow_tensor = actions.reshape(self.cluster_flow_tensor.shape)
-        self.reward = self.compute_reward()
-        if self.reward > self.best_reward:
-            self.best_reward = self.reward
+        self.dataset.create_chargers_xml_gymnasium(
+            actions
+        )
+        charger_cost = self.dataset.parse_charger_network_get_charger_cost()
+        charger_cost_reward = (charger_cost / self.dataset.max_charger_cost).item()
+
+        self.iteration += 1
+        if self.iteration % self.charge_model_loop == 0:
+            avg_charge_reward, _ = self.send_reward_request() 
+            self.charge_model.train()
+            x, edge_index = self.dataset.linegraph.x.to(self.device), self.dataset.linegraph.edge_index.to(self.device) 
+            output = self.charge_model(x, edge_index)
+            target = torch.tensor(avg_charge_reward).to(self.device)
+            self.optimizer.zero_grad()
+            loss = self.criterion(output, target)
+            self.writer.add_scalar("Loss/charge_model_loss", loss.item(), self.iteration)
+            self.optimizer.step()
+            self.charge_model.eval()
+        else:
+            avg_charge_reward = self.charge_model(self.dataset.linegraph.x, self.dataset.linegraph.edge_index)
+        
+        self.writer.add_scalar("Reward/charge_reward", avg_charge_reward, global_step=self.iteration)
+        self.writer.add_scalar("Reward/cost_reward", charger_cost_reward, global_step=self.iteration)
+
+        _reward = avg_charge_reward - charger_cost_reward
+
+        self.writer.add_scalar("Reward/total_reward", _reward, global_step=self.iteration)
+
+        self.reward = _reward
+        if _reward > self.best_reward:
+            self.best_reward = _reward
+
+        self.writer.add_scalar("Reward/best_reward", self.best_reward, global_step=self.iteration)
 
         return (
-            self.cluster_flow_tensor.reshape(self.t*self.num_clusters, self.num_clusters),
-            self.reward,
+            self.dataset.linegraph.x,
+            _reward,
+            self.done,
             self.done,
             dict(graph_env_inst=self),
         )

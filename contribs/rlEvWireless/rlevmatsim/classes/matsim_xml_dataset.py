@@ -3,12 +3,16 @@ import torch
 import shutil
 from torch_geometric.data import Dataset
 from torch_geometric.transforms import LineGraph
+from gymnasium import spaces
 from torch_geometric.data import Data
 from pathlib import Path
 from rlevmatsim.scripts.util import setup_config
 from bidict import bidict
 from rlevmatsim.classes.chargers import Charger, NoneCharger, StaticCharger, DynamicCharger
 from rlevmatsim.scripts.create_population_ev import create_population_and_plans_xml_counts
+from sklearn.cluster import KMeans
+import numpy as np
+import os
 
 
 class MatsimXMLDataset(Dataset):
@@ -20,7 +24,9 @@ class MatsimXMLDataset(Dataset):
     def __init__(
         self,
         config_path: Path,
+        results_dir: Path,
         time_string: str,
+        num_clusters: int,
     ):
         """
         Initializes the MatsimXMLDataset.
@@ -37,6 +43,7 @@ class MatsimXMLDataset(Dataset):
         shutil.copytree(config_path.parent, tmp_dir)
 
         self.config_path = Path(tmp_dir / config_path.name)
+        self.results_dir = Path(results_dir)
 
         (
             network_file_name,
@@ -46,6 +53,7 @@ class MatsimXMLDataset(Dataset):
             counts_file_name
         ) = setup_config(self.config_path, str(output_path))
 
+        self.num_clusters = num_clusters
         self.charger_xml_path = Path(tmp_dir / chargers_file_name)
         self.network_xml_path = Path(tmp_dir / network_file_name)
         self.plan_xml_path = Path(tmp_dir / plans_file_name)
@@ -102,7 +110,7 @@ class MatsimXMLDataset(Dataset):
         """
         Creates a mapping of edge attributes to their indices.
         """
-        self.edge_attr_mapping = {"length": 0, "freespeed": 1, "capacity": 2}
+        self.edge_attr_mapping = {"length": 0, "freespeed": 1, "capacity": 2, "slopes":3}
         edge_attr_idx = len(self.edge_attr_mapping)
         for charger in self.charger_list:
             self.edge_attr_mapping[charger.type] = edge_attr_idx
@@ -119,6 +127,10 @@ class MatsimXMLDataset(Dataset):
         node_pos = []
         edge_index = []
         edge_attr = []
+        node_coords_list = []
+        self.node_coords = {}
+        self.clusters = {}
+        node_idx_to_link_idx = {}
 
         for i, node in enumerate(root.findall(".//node")):
             node_id = node.get("id")
@@ -126,6 +138,10 @@ class MatsimXMLDataset(Dataset):
             node_pos.append([float(node.get("x")), float(node.get("y"))])
             self.node_mapping[node_id] = i
             node_ids.append(i)
+            curr_x = float(node.get("x"))
+            curr_y = float(node.get("y"))
+            node_coords_list.append([curr_x, curr_y])
+            self.node_coords[node_id] = (curr_x, curr_y)
 
         tot_attr = len(self.edge_attr_mapping)
 
@@ -137,6 +153,10 @@ class MatsimXMLDataset(Dataset):
             edge_index.append([from_idx, to_idx])
             curr_link_attr = torch.zeros(tot_attr)
             self.edge_mapping[link.get("id")] = i
+            if from_idx in node_idx_to_link_idx:
+                node_idx_to_link_idx[from_idx].append(i)
+            else:
+                node_idx_to_link_idx[from_idx] = [i]
 
             for key, value in self.edge_attr_mapping.items():
                 if key in link.attrib:
@@ -171,6 +191,31 @@ class MatsimXMLDataset(Dataset):
             self.graph.edge_attr[:, :3]
         )
         self.state = self.graph.edge_attr
+
+        kmeans = KMeans(n_clusters=self.num_clusters)
+        kmeans.fit(np.array(node_coords_list))
+        self.kmeans = kmeans
+
+        for idx, label in enumerate(kmeans.labels_):
+            cluster_id = label
+            if cluster_id not in self.clusters:
+                self.clusters[cluster_id] = []
+            for edge_idx in node_idx_to_link_idx[idx]:
+                self.clusters[cluster_id].append(edge_idx)
+
+        self.clusters = {k: v for k,v in sorted(self.clusters.items(), key=lambda x: x[0])}
+        self.save_clusters()
+
+    def save_clusters(self):
+        filepath = Path(self.results_dir / "clusters.txt")
+        if not os.path.exists(filepath.parent):
+            os.makedirs(filepath.parent)
+        with open(filepath, "w") as f:
+            for cluster_id, edges in self.clusters.items():
+                f.write(f"{cluster_id}:")
+                for edge_idx in edges:
+                    f.write(f"{self.edge_mapping.inv[edge_idx]},")
+                f.write('\n')
 
     def sample_chargers(
         self,
@@ -241,7 +286,7 @@ class MatsimXMLDataset(Dataset):
                 link_idx = self.edge_mapping[link_id]
                 link_attr = self.graph.edge_attr[link_idx]
                 link_attr_denormalized = self._min_max_normalize(
-                    link_attr[:3], reverse=True
+                    link_attr[:4], reverse=True
                 )
                 link_len_km = (
                     link_attr_denormalized[self.edge_attr_mapping["length"]] * 0.001
@@ -274,6 +319,38 @@ class MatsimXMLDataset(Dataset):
 
         self.charger_cost = cost
         return cost
+    
+    def create_chargers_xml_gymnasium(
+        self, 
+        actions: spaces.MultiDiscrete
+    ):
+        """
+        Create a chargers XML file for MATSim using a multi-discrete action space.
+        """
+        chargers = ET.Element("chargers")
+
+        for idx, action in enumerate(actions):
+            if action == 0:
+                continue
+            charger = self.charger_list[action]
+            link_id = self.edge_mapping.inv[idx]
+            ET.SubElement(
+                chargers,
+                "charger",
+                id=str(idx),
+                link=str(link_id),
+                plug_power=str(charger.plug_power),
+                plug_count=str(charger.plug_count),
+                type=charger.type,
+            )
+
+        tree = ET.ElementTree(chargers)
+        with open(self.charger_xml_path, "wb") as f:
+            f.write(b'<?xml version="1.0" ?>\n')
+            f.write(
+                b'<!DOCTYPE chargers SYSTEM "http://matsim.org/files/dtd/chargers_v1.dtd">\n'
+            )
+            tree.write(f)
 
     def get_graph(self):
         """

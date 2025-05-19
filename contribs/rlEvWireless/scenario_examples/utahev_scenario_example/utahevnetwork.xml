@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE network SYSTEM "http://www.matsim.org/files/dtd/network_v2.dtd">
 <network>
 
-
+<!-- ====================================================================== -->
 
 	<nodes>
 		<node id="10002192851" x="-1.443691940418536E7" y="3986161.341669188">

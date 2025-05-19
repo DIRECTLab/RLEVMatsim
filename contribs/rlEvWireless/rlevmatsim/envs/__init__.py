@@ -1,6 +1,6 @@
 from gymnasium.envs.registration import register
 
 register(
-    id="MatsimGraphEnvGNN-v0", 
+    id="RLOCP", 
     entry_point="rlevmatsim.envs.rl_ocp_env:RLOCPEnv",
 )
