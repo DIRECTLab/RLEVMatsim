@@ -37,13 +37,13 @@ def train(args):
         writer.add_scalar("Loss", loss.item(), epoch)
         optimizer.step()
         args.dataset.sample_chargers()
-    with open(Path(args.results_dir) / "model.pt", "wb") as f:
+    
+    with open(Path(args.results_dir) / "model.pt") as f:
         torch.save(model, f)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("matsim_config_path", type=str, help="Path to the matsim config.xml file")
-    parser.add_argument("--model_path", type=str, default=None, help="Path to trained model to continue training")
     parser.add_argument("--results_dir", type=str, default="./results", help="path to directory where this runs results will be saved")
     parser.add_argument("--epochs", type=int, default=10)
     parser.add_argument("--lr", type=float, default=1e-3)
@@ -54,10 +54,5 @@ if __name__ == "__main__":
     args.results_dir = Path(Path(args.results_dir) / args.time_str)
     args.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     args.dataset = MatsimXMLDataset(Path(args.matsim_config_path), args.time_str)
-
-    if (args.model_path is not None):
-        with open(args.model_path, "rb") as f:
-            args.model = torch.load(f)
-    else:
-        args.model = MatsimGNN(len(args.dataset.edge_attr_mapping))
+    args.model = MatsimGNN(len(args.dataset.edge_attr_mapping))
     train(args)
