@@ -1,18 +1,12 @@
 import argparse
 import torch
-import torch.nn as nn
-import torch.optim as optim
-import torch.nn.init as init
-from torch_geometric.nn import GCNConv, global_mean_pool
 from pathlib import Path
-from torch.utils.tensorboard import SummaryWriter
-from datetime import datetime
-from rlevmatsim.scripts.util import send_reward_request
-from tqdm import tqdm
 import yaml
 from harl.runners import RUNNER_REGISTRY
 from harl.envs.ocp.matsim_gnn import MatsimGNN
 from harl.envs.ocp.matsim_xml_dataset import MatsimXMLDataset
+import multiprocessing as mp
+mp.set_start_method('spawn', force=True)
 
 def train(args):
     with open(args.args_config, "r") as f:
