@@ -5,6 +5,7 @@ import yaml
 from harl.runners import RUNNER_REGISTRY
 from harl.envs.ocp.matsim_gnn import MatsimGNN
 from harl.envs.ocp.matsim_xml_dataset import MatsimXMLDataset
+from tqdm import tqdm
 import multiprocessing as mp
 mp.set_start_method('spawn', force=True)
 
@@ -21,9 +22,24 @@ def train(args):
 
     if (env_args["charge_model_path"] is not None):
         with open(env_args["charge_model_path"], "rb") as f:
-            model = torch.load(f)
+            model = torch.load(f).to(device)
     else:
-        model = MatsimGNN(len(dataset.edge_attr_mapping))
+        model = MatsimGNN(len(dataset.edge_attr_mapping)).to(device)
+
+    if env_args["charge_model_pretraining_epochs"] is not None:
+        pbar = tqdm(range(env_args["charge_model_pretraining_epochs"]), desc="Training Matsim predictor model")
+        model.train()
+        for _ in pbar:
+            x, edge_index = dataset.linegraph.x.to(device), dataset.linegraph.edge_index.to(device) 
+            output = model(x, edge_index)
+            response = dataset.send_reward_request()
+            target = torch.tensor(response[0]).to(args.device)
+            dataset.optimizer.zero_grad()
+            loss = dataset.criterion(output, target)
+            pbar.set_postfix(loss=loss.item())
+            loss.backward()
+            dataset.optimizer.step()
+            args.dataset.sample_chargers()
 
     env_args["dataset"] = dataset
     env_args["charge_model"] = model
@@ -31,6 +47,8 @@ def train(args):
     args = vars(args)
 
     runner = RUNNER_REGISTRY[args["algo"]](args, algo_args, env_args)
+    with open(Path(runner.run_dir) / "matsim_model.pt", "wb") as f:
+        torch.save(model, f)
     runner.run()
     runner.close()
         
