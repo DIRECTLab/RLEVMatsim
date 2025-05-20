@@ -65,9 +65,9 @@ public class OCPRewardServer {
 
     public static void main(String[] args) throws Exception {
         int argsThreadPoolSize =  Integer.parseInt(args[0]); 
+        int port = Integer.parseInt(args[1]);
         OCPRewardServer rewardServer = new OCPRewardServer(argsThreadPoolSize);
         // Set up the HTTP server
-        int port = 8000;
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
         System.setProperty("matsim.preferLocalDtds", "true");
         server.createContext("/getReward", rewardServer.new RewardHandler());

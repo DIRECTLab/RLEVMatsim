@@ -8,6 +8,7 @@ from harl.envs.ocp.matsim_xml_dataset import MatsimXMLDataset
 from tqdm import tqdm
 import multiprocessing as mp
 mp.set_start_method('spawn', force=True)
+import subprocess
 
 def train(args):
     with open(args.args_config, "r") as f:
@@ -16,7 +17,8 @@ def train(args):
         env_args = yaml.load(f, Loader=yaml.FullLoader)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    dataset = MatsimXMLDataset(Path(env_args["config_path"]), env_args["num_agents_per_env"])
+
+    dataset = MatsimXMLDataset(Path(env_args["config_path"]), env_args["num_agents_per_env"], device)
     env_args["dataset"] = dataset
     env_args["device"] = device
 
@@ -26,29 +28,20 @@ def train(args):
     else:
         model = MatsimGNN(len(dataset.edge_attr_mapping)).to(device)
 
-    if env_args["charge_model_pretraining_epochs"] is not None:
-        pbar = tqdm(range(env_args["charge_model_pretraining_epochs"]), desc="Training Matsim predictor model")
-        model.train()
-        for _ in pbar:
-            x, edge_index = dataset.linegraph.x.to(device), dataset.linegraph.edge_index.to(device) 
-            output = model(x, edge_index)
-            response = dataset.send_reward_request()
-            target = torch.tensor(response[0]).to(args.device)
-            dataset.optimizer.zero_grad()
-            loss = dataset.criterion(output, target)
-            pbar.set_postfix(loss=loss.item())
-            loss.backward()
-            dataset.optimizer.step()
-            args.dataset.sample_chargers()
+    dataset.init_model(model, env_args["charge_model_loop"], env_args["charge_model_iters"])
 
     env_args["dataset"] = dataset
-    env_args["charge_model"] = model
 
     args = vars(args)
 
     runner = RUNNER_REGISTRY[args["algo"]](args, algo_args, env_args)
-    with open(Path(runner.run_dir) / "matsim_model.pt", "wb") as f:
+
+    if env_args["charge_model_pretraining_epochs"] is not None:
+        dataset.train_charge_model(env_args["charge_model_pretraining_epochs"], True)
+
+    with open(Path(runner.run_dir) / "matsim_charge_model.pt", "wb") as f:
         torch.save(model, f)
+
     runner.run()
     runner.close()
         
