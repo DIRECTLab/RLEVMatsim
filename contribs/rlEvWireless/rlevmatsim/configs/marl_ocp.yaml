@@ -2,13 +2,13 @@ config_path: "/home/isaacp/repos/RLEVMatsim/contribs/rlEvWireless/scenario_examp
 # How many agents to use to run optimal charger placement (OCP) per environment
 num_agents_per_env: 1
 results_dir: "./utah_ev_ocp_results"
-charge_model_path: "/home/isaacp/repos/RLEVMatsim/contribs/rlEvWireless/results/ocp/ocp/happo/marl_ocp/seed-00001-2025-05-21-15-24-48/matsim_charge_model.pt"
+charge_model_path: "/home/isaacp/repos/RLEVMatsim/contribs/rlEvWireless/results/ocp/ocp/happo/marl_ocp/seed-00001-2025-05-21-17-19-17/matsim_charge_model.pt"
 # How often to update the model with the actual charge efficiency retrieved from the server, every (charge_model_loop / (episode_length)) episodes
 charge_model_loop: 1000
 # When updating the charge model on the server output, how many iterations to train for
-charge_model_iters: 10
+charge_model_iters: 5
 # How many iterations to finetune the model before the OCP RL loop begins
-charge_model_pretraining_epochs:
+charge_model_pretraining_epochs: 30
 learning_rate: 0.001
 server_port: 8000
 num_server_threads: 2
