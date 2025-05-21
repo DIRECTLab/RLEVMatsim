@@ -35,7 +35,11 @@ def train(args):
     runner = RUNNER_REGISTRY[args["algo"]](args, algo_args, env_args)
 
     if env_args["charge_model_pretraining_epochs"] is not None:
-        dataset.train_charge_model(env_args["charge_model_pretraining_epochs"], True)
+        pbar = tqdm(range(env_args["charge_model_pretraining_epochs"]), desc="Pretraining Matsim Learner Model")
+        for _ in pbar:
+            dataset.sample_chargers()
+            loss = dataset.train_charge_model()
+            pbar.set_postfix(loss=loss)
 
     with open(Path(runner.run_dir) / "matsim_charge_model.pt", "wb") as f:
         torch.save(model, f)
