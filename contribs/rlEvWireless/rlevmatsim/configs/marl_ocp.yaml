@@ -1,19 +1,17 @@
 config_path: "/home/isaacp/repos/RLEVMatsim/contribs/rlEvWireless/scenario_examples/tinytown_scenario_example/ev_tiny_town_config.xml"
-# How many parallel environments to run at a time
-num_envs: 2
 # How many agents to use to run optimal charger placement (OCP) per environment
-num_agents_per_env: 10
+num_agents_per_env: 1
 results_dir: "./utah_ev_ocp_results"
-charge_model_path: "/home/isaacp/repos/RLEVMatsim/contribs/rlEvWireless/results/ocp/ocp/happo/marl_ocp/seed-00001-2025-05-20-14-12-29/matsim_charge_model.pt"
-# How often to update the model with the actual charge efficiency retrieved from the server
+charge_model_path: "/home/isaacp/repos/RLEVMatsim/contribs/rlEvWireless/results/ocp/ocp/happo/marl_ocp/seed-00001-2025-05-21-15-24-48/matsim_charge_model.pt"
+# How often to update the model with the actual charge efficiency retrieved from the server, every (charge_model_loop / (num_envs * episode_length)) episodes
 charge_model_loop: 100
 # When updating the charge model on the server output, how many iterations to train for
-charge_model_iters: 1
+charge_model_iters: 10
 # How many iterations to finetune the model before the OCP RL loop begins
 charge_model_pretraining_epochs:
-learning_rate: 1e-3
+learning_rate: 0.001
 server_port: 8000
 num_server_threads: 2
 # How often to save the server output, keep in mind this will run the simulation on the server
 # every save_server_output_interval steps which can slow down training
-save_server_output_interval: 1000
+save_server_output_interval: 10000

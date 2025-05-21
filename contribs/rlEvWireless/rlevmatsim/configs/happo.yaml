@@ -13,11 +13,11 @@ device:
   torch_threads: 4
 train:
   # number of parallel environments for training data collection
-  n_rollout_threads: 2
+  n_rollout_threads: 1
   # number of total training steps
   num_env_steps: 10000000
   # number of steps per environment per training data collection
-  episode_length: 16
+  episode_length: 10
   # logging interval
   log_interval: 1
   # evaluation interval
@@ -65,11 +65,11 @@ model:
   data_chunk_length: 1
   # optimizer parameters
   # actor learning rate
-  lr: 0.001
+  lr: 0.0005
   # critic learning rate
   critic_lr: 0.0005
   # eps in Adam
-  opti_eps: 0.00001
+  opti_eps: 0.0001
   # weight_decay in Adam
   weight_decay: 0
   # parameters of diagonal Gaussian distribution

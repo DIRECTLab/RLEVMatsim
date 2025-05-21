@@ -28,10 +28,8 @@ def train(args):
     else:
         model = MatsimGNN(len(dataset.edge_attr_mapping)).to(device)
 
-    dataset.init_model(model, env_args["charge_model_loop"], env_args["charge_model_iters"])
-
-    env_args["dataset"] = dataset
-
+    dataset.init_model(model, env_args["charge_model_loop"], env_args["charge_model_iters"], env_args["learning_rate"])
+   
     args = vars(args)
 
     runner = RUNNER_REGISTRY[args["algo"]](args, algo_args, env_args)
