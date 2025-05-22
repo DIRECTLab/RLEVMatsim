@@ -3,13 +3,11 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.init as init
-from torch_geometric.nn import GCNConv, global_mean_pool
-from rlevmatsim.classes.matsim_gnn import MatsimGNN
-from rlevmatsim.classes.matsim_xml_dataset import MatsimXMLDataset
+from harl.envs.ocp.matsim_gnn import MatsimGNN
+from harl.envs.ocp.matsim_xml_dataset import MatsimXMLDataset
 from pathlib import Path
 from torch.utils.tensorboard import SummaryWriter
 from datetime import datetime
-from rlevmatsim.scripts.util import send_reward_request
 from tqdm import tqdm
 
 def train(args):
@@ -26,9 +24,10 @@ def train(args):
 
     model.train()
     for epoch in pbar:
+        args.dataset.sample_chargers()
         x, edge_index = args.dataset.linegraph.x.to(args.device), args.dataset.linegraph.edge_index.to(args.device) 
         output = model(x, edge_index)
-        response = send_reward_request(args.results_dir, args.dataset, args.time_str)
+        response = args.dataset.send_reward_request()
         target = torch.tensor(response[0]).to(args.device)
         optimizer.zero_grad()
         loss = criterion(output, target)
@@ -36,7 +35,6 @@ def train(args):
         loss.backward()
         writer.add_scalar("Loss", loss.item(), epoch)
         optimizer.step()
-        args.dataset.sample_chargers()
     with open(Path(args.results_dir) / "model.pt", "wb") as f:
         torch.save(model, f)
 
@@ -53,11 +51,12 @@ if __name__ == "__main__":
 
     args.results_dir = Path(Path(args.results_dir) / args.time_str)
     args.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    args.dataset = MatsimXMLDataset(Path(args.matsim_config_path), args.time_str)
+    args.dataset = MatsimXMLDataset(Path(args.matsim_config_path), args.time_str, args.device)
 
     if (args.model_path is not None):
         with open(args.model_path, "rb") as f:
             args.model = torch.load(f)
     else:
         args.model = MatsimGNN(len(args.dataset.edge_attr_mapping))
+
     train(args)
