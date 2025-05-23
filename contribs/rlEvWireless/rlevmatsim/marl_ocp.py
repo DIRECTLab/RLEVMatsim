@@ -4,6 +4,7 @@ from pathlib import Path
 import yaml
 from harl.runners import RUNNER_REGISTRY
 from harl.envs.ocp.matsim_gnn import MatsimGNN
+from harl.envs.ocp.matsim_mlp import MatsimMLP
 from harl.envs.ocp.matsim_xml_dataset import MatsimXMLDataset
 from tqdm import tqdm
 import multiprocessing as mp
@@ -26,19 +27,21 @@ def train(args):
         with open(env_args["charge_model_path"], "rb") as f:
             model = torch.load(f).to(device)
     else:
-        model = MatsimGNN(len(dataset.edge_attr_mapping)).to(device)
+        if env_args["model_type"] == "gnn":
+            model = MatsimGNN(len(dataset.edge_attr_mapping)).to(device)
+        if env_args["model_type"] == "mlp":
+            model = MatsimMLP(len(dataset.edge_attr_mapping)).to(device)
 
     dataset.init_model(model, env_args["charge_model_loop"], env_args["charge_model_iters"], env_args["learning_rate"])
    
     args = vars(args)
-
-    runner = RUNNER_REGISTRY[args["algo"]](args, algo_args, env_args)
 
     if env_args["charge_model_pretraining_epochs"] is not None:
         dataset.train_charge_model(env_args["charge_model_pretraining_epochs"])
     else:
         dataset.train_charge_model(1)
 
+    runner = RUNNER_REGISTRY[args["algo"]](args, algo_args, env_args)
 
     with open(Path(runner.run_dir) / "matsim_charge_model.pt", "wb") as f:
         torch.save(model, f)
