@@ -3,8 +3,8 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.init as init
-from harl.envs.ocp.matsim_gnn import MatsimGNN
-from harl.envs.ocp.matsim_xml_dataset import MatsimXMLDataset
+from rlevmatsim.envs.ocp.matsim_gnn import MatsimGNN
+from rlevmatsim.envs.ocp.matsim_xml_dataset import MatsimXMLDataset
 from pathlib import Path
 from torch.utils.tensorboard import SummaryWriter
 from datetime import datetime
